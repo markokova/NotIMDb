@@ -1,0 +1,134 @@
+.movie-card-section {
+  text-align: center;
+  position: relative;
+}
+
+.movie-card-container {
+  display: flex;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+  padding: 30px;
+}
+
+.movie-card {
+  flex-shrink: 0; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 400px;
+  padding: 4px;
+  margin-right: 16px;
+  margin-left: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #4d4d4d;
+  transition: transform 0.3s ease-in-out;
+  text-decoration: none;
+  color: #333333;  
+  position: relative;
+}
+
+.movie-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.movie-card:hover .review-score {
+  opacity: 1; /* Show the element on hover */
+}
+
+.movie-card:hover .function-button{  
+  display: block;
+}
+
+.function-button {
+  display: none; /* Add this line */
+  position: absolute; /* Add this line */
+  bottom: 10px; /* Adjust the position as needed */
+  right: 10px; /* Adjust the position as needed */
+  font-size: 30px; /* Adjust the button size */
+  color: #ecdd09;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.review-score{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #40b8ae;
+  opacity: 0; /* Add this line to hide the element by default */
+  transition: opacity 0.3s ease; /* Add opacity transition */
+  display: flex; /* Add this line to center the heart symbol */
+  justify-content: center; /* Add this line to center the heart symbol */
+  z-index: 1;
+}
+
+.heart-score::before {
+  content: "\2665"; /* Unicode code for a heart symbol */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 80px; /* Adjust the size of the heart symbol */
+  color: rgba(255, 255, 255, 0.918); /* Adjust the color of the heart symbol */
+  transform: translate(-50%, -50%); /* Center the heart symbol */
+  z-index: -1;
+}
+
+.movie-card-image {
+  width: 280px;
+  height: 390px;
+  margin-bottom: 16px;
+  background-color: #cccccc;
+  border-radius: 4px;
+  object-fit: cover; /* Add this line to control the image display */
+}
+
+.movie-card-title {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.movie-card-runtime {
+  font-size: 14px;
+  text-align: center;
+}
+
+.movie-card-year {
+  font-size: 14px;
+  text-align: center;
+  color: #999999;
+}
+
+.scroll-arrow {
+  position: absolute;
+  display: flex;
+  top: 47%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  color: #333333;
+  cursor: pointer;
+  transition: color 0.3s ease, opacity 0.3s ease; /* Add opacity transition */
+  z-index: 1;
+  opacity: 0.25; /* Set default opacity */  
+}
+
+.scroll-arrow:hover {
+  opacity: 1; /* Increase opacity on hover */
+  color: #40b8ae;
+}
+.scroll-arrow-left {
+  left: 5px;
+}
+
+.scroll-arrow-right {
+  right: 5px;
+}

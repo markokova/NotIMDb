@@ -1,0 +1,70 @@
+.formContainer {
+    display: flex;
+    width: 30%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
+
+.testForm {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.testForm .row {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    justify-content: space-between;
+}
+
+.testForm .row label {
+    flex: 1;
+}
+
+.testForm .row input {
+    flex: 3;
+}
+
+.testForm .row button {
+    width: 100%
+}
+
+.testForm .row p {
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: 1.2em;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .formContainer {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .formContainer {
+        width: 30%;
+    }
+}
+
+
+@media only screen and (max-width: 720px) {
+    .formContainer {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .formContainer {
+        width: 90%;
+    }
+}

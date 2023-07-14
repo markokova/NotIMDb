@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E0426EBB-05F2-4180-9CE1-09737B9FE807}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NotIMDb.Service.Common</RootNamespace>
+    <AssemblyName>NotIMDb.Service.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IActorService.cs" />
+    <Compile Include="IGenreService.cs" />
+    <Compile Include="IMovieGenreService.cs" />
+    <Compile Include="IMovieService.cs" />
+    <Compile Include="IReviewService.cs" />
+    <Compile Include="IUserManagementService.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="IWatchlistService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotIMDb.Common\NotIMDb.Common.csproj">
+      <Project>{E606A5F8-D90C-482F-B83A-8D0B46E5F90A}</Project>
+      <Name>NotIMDb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotIMDb.Model.Common\NotIMDb.Model.Common.csproj">
+      <Project>{9ed50109-f960-4f93-b9b3-5a2fb40af4a2}</Project>
+      <Name>NotIMDb.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotIMDb.Model\NotIMDb.Model.csproj">
+      <Project>{c5e3b0a7-b12c-4466-8f7f-66392a5ce4f2}</Project>
+      <Name>NotIMDb.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotIMDb.Repository.Common\NotIMDb.Repository.Common.csproj">
+      <Project>{7fb9dcfe-c8fc-424d-aac9-b5f2c40e1324}</Project>
+      <Name>NotIMDb.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotIMDb.Repository\NotIMDb.Repository.csproj">
+      <Project>{deb29cd0-99b3-4a4a-8c36-5416e5dc6549}</Project>
+      <Name>NotIMDb.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
