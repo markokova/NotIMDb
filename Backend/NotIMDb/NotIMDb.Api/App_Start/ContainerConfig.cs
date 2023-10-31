@@ -30,6 +30,7 @@ namespace NotIMDb.Api.App_Start
 
             builder.RegisterType<ReviewRepository>().As<IReviewRepository>();
             builder.RegisterType<ReviewService>().As<IReviewService>();
+
             builder.RegisterType<ActorService>().As<IActorService>();
             builder.RegisterType<ActorRepository>().As<IActorRepository>();
             
@@ -38,6 +39,7 @@ namespace NotIMDb.Api.App_Start
 
             builder.RegisterType<GenreRepository>().As<IGenreRepository>();
             builder.RegisterType<GenreService>().As<IGenreService>();
+
             builder.RegisterType<WatchlistRepository>().As<IWatchlistRepository>();
             builder.RegisterType<WatchlistService>().As<IWatchlistService>();
 

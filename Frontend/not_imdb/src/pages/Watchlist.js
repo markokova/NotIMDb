@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MovieCard from "../components/movie_components/MovieCard";
 import { getWatchlistMovies, getWatchlistMoviesWatched } from "../services/movie_service";
 import MovieCardsWatchlist from "../components/movie_components/MovieCardsWatchlist";
 
@@ -14,17 +13,18 @@ function Watchlist(props) {
 
   const fetchWatchlistMovies = async () => {
     try {
-      const response = await getWatchlistMovies();
+      const response = await getWatchlistMovies(props.user.token, props.user.id);
+      console.log("props: ",props.user.token);
       console.log(response.data);
       setWatchlistMovies(response.data.AllMovieRests);
     } catch (error) {
-      console.error("Error while fetching watchlist movies:", error);
+        console.error("Error while fetching watchlist movies:", error);
     }
   };
 
   const fetchWatchedMovies = async () => {
     try {
-      const responseWatched = await getWatchlistMoviesWatched();
+      const responseWatched = await getWatchlistMoviesWatched(props.user.token, props.user.id);
       console.log(responseWatched.data);
 
       setWatchedMovies(responseWatched.data.AllMovieRests);
@@ -38,7 +38,7 @@ function Watchlist(props) {
       <h2>To be watched:</h2>
       {watchlistMovies.length > 0 ? (
         <div>
-          <MovieCardsWatchlist movies={watchlistMovies} method={getWatchlistMovies} token={props.user.token}/>
+          <MovieCardsWatchlist movies={watchlistMovies} getMovies={getWatchlistMovies} user={props.user}/>
         </div>
       ) : (
         <p>No movies found in the watchlist.</p>
@@ -47,7 +47,7 @@ function Watchlist(props) {
       <div className="watched">
         {watchedMovies.length > 0 ? (
           <div>
-            <MovieCardsWatchlist movies={watchedMovies} method={getWatchlistMoviesWatched} token={props.user.token}/>
+            <MovieCardsWatchlist movies={watchedMovies} getMovies={getWatchlistMoviesWatched} user={props.user}/>
           </div>
         ) : (
           <p>No movies found in the watched list.</p>

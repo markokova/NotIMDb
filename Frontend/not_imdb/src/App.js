@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home";
 import MovieDetails from './pages/MovieDetails';
@@ -8,8 +8,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import UserDetails from './pages/UserDetails';
 import { useState } from 'react';
-
-import AdminMovieDashboard from "./pages/AdminMovieDashboard";
+import AdminMovieDashboard from "./pages/AdminDasboard/AdminMovieDashboard";
 import AdminActorDashboard from './pages/AdminDasboard/AdminActorDashboard';
 import AdminGenreDashboard from './pages/AdminDasboard/AdminGenreDashboard';
 import AdminReviewDashboard from './pages/AdminDasboard/AdminReviewDashboard';
@@ -32,7 +31,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/admin_dashboard/genres" element={<AdminGenreDashboard />}></Route>
           <Route path="/admin_dashboard/actors" element={<AdminActorDashboard />}></Route>
-          <Route path="/admin_dashboard/reviews" element={<AdminReviewDashboard />}></Route>
+          <Route path="/admin_dashboard/reviews" element={<AdminReviewDashboard user={user}/>}></Route>
           <Route path="/admin_dashboard/users" element={<AdminUserDashboard user={user} />}></Route>
           <Route path="/:id/reviews" element={<Reviews/>}></Route>
           <Route path="/user/details/" element={<UserDetails user={user} />}></Route>
@@ -41,7 +40,7 @@ function App() {
         <div className='footer'>
           <div className='copyright'>
             <span><i class="fa-regular fa-copyright"></i></span>
-            <span> Fastest Swimers</span>
+            <span>NotIMDb</span>
             <span><i class="fa-regular fa-copyright"></i></span>
           </div>
         </div>

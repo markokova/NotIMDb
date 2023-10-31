@@ -16,14 +16,14 @@ function ReviewTable({reviews, deleteReview}){
             </thead>
             <tbody id="moviesTableBody">
                 {reviews.map((review) => (
-                        <tr key={review.Id} >
-                            <td>{review.UserName}</td>
-                            <td>{review.Title}</td>
-                            <td>{review.Content}</td>
-                            <td>{review.Score}</td>
-                            <td>{review.DateUpdated}</td>
-                            <td><Button text="Delete" onClick={() => deleteReview(review.Id)}/></td>
-                        </tr> 
+                    <tr key={review.Id} >
+                        <td>{review.UserName}</td>
+                        <td>{review.Title}</td>
+                        <td>{review.Content}</td>
+                        <td>{review.Score}</td>
+                        <td>{review.DateUpdated}</td>
+                        <td><Button text="Delete" onClick={() => deleteReview(review.Id)}/></td>
+                    </tr> 
                 ))}
             </tbody>
         </table>

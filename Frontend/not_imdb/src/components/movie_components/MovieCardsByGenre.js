@@ -4,12 +4,10 @@ import { useState, useEffect } from "react";
 function MovieCardsByGenre(){
     
     const[genres, setGenres] = useState([]);
-    const[genre, setGenre] = useState("");
 
     useEffect(() => {
         getGenres().then((response) => {
             setGenres(response.data.genreRests);
-            console.log(response.data);
         }).catch((error) => {
             console.error("Error fetching genres.", error);
         });

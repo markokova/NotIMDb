@@ -1,4 +1,4 @@
-import './UserDetails.css'
+import '../styles/UserDetails.css';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { parseDate } from '../services/common_service';

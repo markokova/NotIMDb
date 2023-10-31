@@ -8,6 +8,8 @@ namespace NotIMDb.Api.Models.ReviewRest
 {
     public class ReviewRestGet
     {
+
+        public Guid Id { get; set; }
         public string Title { get; set; }
 
         public string Content { get; set; }

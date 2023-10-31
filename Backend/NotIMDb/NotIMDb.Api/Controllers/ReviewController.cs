@@ -16,10 +16,10 @@ namespace NotIMDb.Api.Controllers
 {
     public class ReviewController : ApiController
     {
-        private IReviewService Service { get; set; }
+        private IReviewService _reviewService { get; set; }
         public ReviewController(IReviewService service)
         {
-           Service = service;
+           _reviewService = service;
         }
 
         [HttpGet]
@@ -28,7 +28,7 @@ namespace NotIMDb.Api.Controllers
         {
             Sorting sorting = new Sorting(orderBy, sortOrder); Paging paging = new Paging(pageSize, currentPage); ReviewFiltering filtering = new ReviewFiltering(score, filterString, movieId);
             
-            PagedList<Review> reviews = await Service.GetReviewsAsync(sorting, paging, filtering);
+            PagedList<Review> reviews = await _reviewService.GetReviewsAsync(sorting, paging, filtering);
 
             RestDomainReviewMapper mapper = new RestDomainReviewMapper();
 
@@ -49,7 +49,7 @@ namespace NotIMDb.Api.Controllers
             RestDomainReviewMapper mapper = new RestDomainReviewMapper();
             Review review = mapper.MapFromRest(reviewRest);
 
-            int affectedRows = await Service.SaveNewReviewAsync(review);
+            int affectedRows = await _reviewService.SaveNewReviewAsync(review);
 
             if(affectedRows == 0)
             {
@@ -72,7 +72,7 @@ namespace NotIMDb.Api.Controllers
             CurrentUser currentUser = new CurrentUser();
             currentUser.Id = GetIdentity();
 
-            affectedRows = await Service.UpdateReviewAsync(id, review, currentUser);
+            affectedRows = await _reviewService.UpdateReviewAsync(id, review, currentUser);
             
             if(affectedRows == 0)
             {
@@ -83,11 +83,15 @@ namespace NotIMDb.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "User, Administrator")]
-        public async Task<HttpResponseMessage> DeleteReservationAsync(Guid id)
+        //[Authorize(Roles = "Administrator")]
+        public async Task<HttpResponseMessage> DeleteReviewAsync(Guid id)
         {
-            int affectedRows = await Service.DeleteReviewAsync(id);
-            
+            int affectedRows = 0;
+            Guid userId = GetIdentity();
+            if(userId != Guid.Empty)
+            {
+                affectedRows = await _reviewService.DeleteReviewAsync(id);
+            }
             if(affectedRows == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, $"Affected rows in DB: {affectedRows}");
@@ -98,6 +102,7 @@ namespace NotIMDb.Api.Controllers
         private static Guid GetIdentity()
         {
             ClaimsIdentity identity = System.Web.HttpContext.Current.User.Identity as ClaimsIdentity;
+            string role = identity.FindFirst(ClaimTypes.Role)?.Value;
             string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             Guid userId = Guid.Empty;

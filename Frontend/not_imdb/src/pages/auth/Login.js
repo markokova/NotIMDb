@@ -1,4 +1,4 @@
-import './Auth.css';
+import '../../styles/Auth.css';
 import { login } from "../../services/auth_service";
 import React, { useState, useEffect } from 'react';
 import { Navigate } from "react-router-dom";
@@ -34,7 +34,7 @@ function Login(props) {
 
         await login(credentials)
             .then((response) => {
-                setLoggedInUser(response.data)
+                //setLoggedInUser(response.data)
                 let loggedInUser = setLoggedInUser(response.data)
                 props.setUser(loggedInUser);
                 console.log(response.data);

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { logOut } from "../services/auth_service";
-import '../components/styles/Nav.css';
+import '../styles/Nav.css';
 
 function Nav(props) {
     const handleLogout = () => {

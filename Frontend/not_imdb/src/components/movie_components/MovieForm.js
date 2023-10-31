@@ -4,7 +4,7 @@ import MovieDropdown from './MovieDropdown';
 import { getActors } from '../../services/actor_service';
 import {getGenres} from '../../services/genre_service';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/MovieForm.css';
+import '../../styles/MovieForm.css';
 
 function MovieForm({onAction, text, movie, setMovieValue}){
     const setValues = (e) => {

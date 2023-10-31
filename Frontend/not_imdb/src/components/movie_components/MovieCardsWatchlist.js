@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/WatchlistCard.css';
+import '../../styles/WatchlistCard.css';
 import { handleAddToWatched, handleDeleteMovieWatched } from '../../services/movie_service';
 import {getWatchlistMovies} from '../../services/movie_service';
 
-function MovieCardsWatchlist({ movies, method, token }) {
+function MovieCardsWatchlist({ movies, getMovies, user}) {
   const [hoveredCard, setHoveredCard] = useState(null);
   const scrollContainerRef = useRef(null);
-  const[movie, setMovie] = useState([]);
+  const[movieList, setMovieList] = useState([]);
 
 
   const handleScrollLeft = () => {
@@ -18,10 +18,10 @@ function MovieCardsWatchlist({ movies, method, token }) {
   };
 
     useEffect(() => {
-        method()
+        getMovies()
           .then((response) => {
             console.log(response);
-            setMovie(response.data.AllMovieRests);
+            setMovieList(response.data.AllMovieRests);
           })
           .catch((error) => {
             console.error("Error fetching movies:", error);
@@ -54,10 +54,16 @@ return (
                 <img src={movie.Image} alt={movie.Title} className="movie-card-image" />
                 {hoveredCard === movie.Id && (
                   <>
-                    <button className="delete-button" onClick={() => handleDeleteMovieWatched(movie.Id, token)}>
+                    <button className="delete-button" onClick={(e) => {
+                      e.preventDefault();
+                      handleDeleteMovieWatched(movie.Id, user);
+                    }}>
                       Delete
                     </button>
-                    <button className="add-to-watched-button" onClick={() => handleAddToWatched(movie.Id, token)}>
+                    <button className="add-to-watched-button" onClick={(e) => {
+                      e.preventDefault();
+                      handleAddToWatched(movie.Id, user);
+                    }}>
                       Add to watched
                     </button>
                   </>

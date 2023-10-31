@@ -23,7 +23,7 @@ namespace NotIMDb.Service
         {
             if((bool)filtering.ShouldFilterById)
             {
-                filtering.UserId = currentUser.Id;
+                //filtering.UserId = currentUser.Id;
             }
             else
             {

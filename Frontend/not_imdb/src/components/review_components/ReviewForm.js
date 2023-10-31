@@ -1,9 +1,8 @@
 import React from 'react';
-import Button from '../Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
-import { handleSubmit } from "../../services/review_service";
-import "../styles/ReviewForm.css";
+import { submitReview } from "../../services/review_service";
+import "../../styles/ReviewForm.css";
 
 function ReviewForm({ user, movieId }){
     const [review, setReview] = useState({
@@ -19,18 +18,8 @@ function ReviewForm({ user, movieId }){
     }
 
     const handleSubmitReview = (e) => {
-        handleSubmit(e,review,user,movieId);
+        submitReview(e,review,user,movieId);
     }
-
-    // const addReview = () =>{
-    //     addNewReview(review)
-    //     .then((response) => {
-
-    //         console.log(response.data);
-    //     }).catch((error) => {
-    //         console.log("Error adding review.", error);
-    //     })
-    // }
 
     return(
         <div id='newReviewForm'>

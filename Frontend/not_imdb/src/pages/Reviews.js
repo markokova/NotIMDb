@@ -2,10 +2,10 @@
 import { getReviews } from "../services/review_service";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Review from "../components/Review";
-import "../App.css";
+import Review from "../components/review_components/Review";
+import "../styles/App.css";
 
-function Reviews(props){
+function Reviews(){
     const { id } = useParams();
     const [reviews, setReviews] = useState([]);
 

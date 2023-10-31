@@ -1,24 +1,27 @@
 import axios from "axios";
 import { getGenres } from "./genre_service";
+import React, { useState } from "react";
 
-export const getWatchlistMovies = (token) => {
+
+export const getWatchlistMovies = (token,id) => {
   let header;
     if (token !== '') {
       header = {
         'Authorization': `Bearer ${token}`
       }
     }
-  return axios.get(`https://localhost:44394/api/Movie?shouldFilterByUserId=${true}`, {headers:header});
+  return axios.get(`https://localhost:44394/api/Movie?shouldFilterByUserId=${true}&userId=${id}`, null, {headers:header});
 }
 
-export const getWatchlistMoviesWatched = (token) => {
+
+export const getWatchlistMoviesWatched = (token,id) => {
   let header;
     if (token !== '') {
       header = {
         'Authorization': `Bearer ${token}`
       }
     }
-  return axios.get(`https://localhost:44394/api/Movie?shouldFilterByUserId=${true}&isWatched=${true}`, {headers:header});
+  return axios.get(`https://localhost:44394/api/Movie?shouldFilterByUserId=${true}&isWatched=${true}&userId=${id}`, null, {headers:header});
 }
 
 
@@ -43,8 +46,6 @@ export const handleSubmit = (e, movie) => {
         console.error("Error while saving new movie.", error);
     });
     return getMovies();
-    //addMovie(newMovie);
-    //return input boxes back to empty boxes after submit button is clicked
 }
 
 
@@ -63,21 +64,20 @@ export const handleDeleteMovie = (movieId) => {
     return getMovies();
   } 
 
-  export const handleDeleteMovieWatched = (movieId, token) => {
+  export const handleDeleteMovieWatched = (movieId, user) => {
     if (!movieId) {
       console.error("Invalid movieId");
       return;
     }
     let header;
-    if (token !== '') {
+    if (user.token !== '') {
       header = {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${user.token}`
       }
     }
     axios.delete("https://localhost:44394/api/Watchlist/" + movieId, {headers:header}).then((response) => {
-      console.log(response.data);
-      getWatchlistMovies()
-      getWatchlistMoviesWatched()
+      getWatchlistMovies(user.token, user.id);
+      getWatchlistMoviesWatched(user.token, user.id);
     })
     .catch((error) => {
       console.error("Error deleting movies:", error);
@@ -86,24 +86,24 @@ export const handleDeleteMovie = (movieId) => {
   } 
 
 
-  export const handleAddToWatched = (movieId, token) => {
+  export const handleAddToWatched = (movieId, user) => {
     if (!movieId) {
       console.error("Invalid movieId");
       return;
     }
     let header;
-    if (token !== '') {
+    if (user.token !== '') {
       header = {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${user.token}`
       }
     }
-    axios.put("https://localhost:44394/api/Watchlist/" + movieId, {headers:header}).then((response) => {
+    axios.put("https://localhost:44394/api/Watchlist/" + movieId, null, {headers:header}).then((response) => {
       console.log(response.data);
     })
     .catch((error) => {
       console.error("Error editing movies:", error);
     });
-    return getWatchlistMovies();
+    return getWatchlistMovies(user.token, user.id);
   }
 
   export const handleUpdate = (e, movie, updateMovieId) => {
@@ -130,19 +130,19 @@ export const handleDeleteMovie = (movieId) => {
   
   
   
-  export const handleAddToWatchlist = (movieId) => {
+  export const handleAddToWatchlist = (movieId, {user}) => {
     if (!movieId) {
       console.error("Invalid movieId");
       return;
     }
     let header;
-    // if (token !== '') {
-    //   header = {
-    //     'Authorization': `Bearer ${token}`
-    //   }
-    // }
-    axios.post("https://localhost:44394/api/Watchlist/" + movieId).then((response) => {
-      console.log(response.data);
+    if (user.token !== '') {
+      header = {
+        'Authorization': `Bearer ${user.token}`
+      }
+    }
+    axios.post("https://localhost:44394/api/Watchlist/" + movieId, null, {headers:header}).then((response) => {
+      console.log("response.data in handleAddToWatchList: ", response.data);
     })
     .catch((error) => {
       console.error("Error editing movies:", error);

@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace NotIMDb.Api.Controllers
@@ -25,7 +26,7 @@ namespace NotIMDb.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        //[Authorize(Roles = "User")]
         //GET: api/Movie
         public async Task<HttpResponseMessage> GetAllMoviesAsync(string orderBy = "Runtime", string sortOrder = "DESC", int pageSize = 10, int currentPage = 1, int? runtime = null, Guid? userId = null, Guid? genreId = null, bool? shouldFilterByUserId = false, bool? isWatched = false)
         {
@@ -35,8 +36,8 @@ namespace NotIMDb.Api.Controllers
             RestDomainMovieMapper restDomainMovieMapper = new RestDomainMovieMapper();
            
             CurrentUser currentUser = new CurrentUser();
-            //currentUser.Id = GetIdentity();
-            currentUser.Id = Guid.Parse("08d58761-429b-49a3-9bce-9b7ca1b3459a");
+            currentUser.Id = GetIdentity();
+            //currentUser.Id = Guid.Parse("08d58761-429b-49a3-9bce-9b7ca1b3459a");
 
             PagedList<MovieView> allMovies = await _movieService.GetAllMoviesAsync(sorting, paging, movieFiltering, currentUser);           
 
@@ -130,9 +131,21 @@ namespace NotIMDb.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest, "There was an issue with deleting your movie!");
         }
 
+        //private Guid GetIdentity()
+        //{
+        //    ClaimsIdentity identity = System.Web.HttpContext.Current.User.Identity as ClaimsIdentity;
+        //    string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    Guid userId = Guid.Empty;
+        //    if (Guid.TryParse(userIdString, out Guid userGuid))
+        //    {
+        //        userId = userGuid;
+        //    }
+        //    return userId;
+        //}
+
         private Guid GetIdentity()
         {
-            ClaimsIdentity identity = System.Web.HttpContext.Current.User.Identity as ClaimsIdentity;
+            ClaimsIdentity identity = HttpContext.Current.User.Identity as ClaimsIdentity;
             string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid userId = Guid.Empty;
             if (Guid.TryParse(userIdString, out Guid userGuid))

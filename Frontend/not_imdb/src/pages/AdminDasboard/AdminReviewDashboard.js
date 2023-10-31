@@ -3,22 +3,12 @@ import ReviewTable from "../../components/review_components/ReviewTable";
 import React, { useState, useEffect } from "react";
 import { getAllReviews, handleDeleteReview } from "../../services/review_service";
 
-function AdminReviewDashboard(){
-    const initalReviewValue = {
-        userName:"",
-        title: "",
-        content:"",
-        score: 3,
-        dateUpdated:""
-      }
+function AdminReviewDashboard(props){
+    const[reviews, setReviews] = useState([]);
     
-      const[reviews, setReviews] = useState([]);
-      const[review, setReview] = useState(initalReviewValue);
-
     //get reviews when the page reloads
     useEffect(() => {
         getAllReviews().then((response) => {
-          console.log(response);
           setReviews(response.data.reviewRests);
       })
       .catch((error) => {
@@ -27,7 +17,8 @@ function AdminReviewDashboard(){
       }, []);
     
       const deleteReview = (deleteReviewId) => {
-        handleDeleteReview(deleteReviewId).then((response) => {
+        console.log("deleteReviewId: ",deleteReviewId);
+        handleDeleteReview(deleteReviewId, props.user).then((response) => {
             console.log(response.data);
           })
           .catch((error) => {
@@ -47,6 +38,5 @@ function AdminReviewDashboard(){
         </div>
     );
 }
-
 
 export default AdminReviewDashboard;

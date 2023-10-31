@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace NotIMDb.Api.Controllers
@@ -21,13 +22,16 @@ namespace NotIMDb.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "User, Administrator")]
+        [Authorize(Roles = "User, Administrator")]
         public async Task<HttpResponseMessage> AddToWatchListAsync(Guid id)
         {
             CurrentUser currentUser = new CurrentUser();
-            //currentUser.Id = GetIdentity();
-            currentUser.Id = Guid.Parse("08d58761-429b-49a3-9bce-9b7ca1b3459a");
+            
+            ClaimsIdentity identity = HttpContext.Current.User.Identity as ClaimsIdentity;
+            string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            currentUser.Id = GetIdentity();
+                
             int affectedRows = await Service.AddToWatchListAsync(id,currentUser);
 
             if(affectedRows == 0)
@@ -39,12 +43,11 @@ namespace NotIMDb.Api.Controllers
         }
 
         [HttpPut]
-        //[Authorize(Roles = "User, Administrator")]
+        [Authorize(Roles = "User, Administrator")]
         public async Task<HttpResponseMessage> MarkAsWatchedAsync(Guid id)
         {
             CurrentUser currentUser = new CurrentUser();
-            //currentUser.Id = GetIdentity();
-            currentUser.Id = Guid.Parse("08d58761-429b-49a3-9bce-9b7ca1b3459a");
+            currentUser.Id = GetIdentity();
             int affectedRows = await Service.MarkAsWatchedAsync(id, currentUser);
 
             if(affectedRows == 0)
@@ -55,12 +58,11 @@ namespace NotIMDb.Api.Controllers
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "User, Administrator")]
+        [Authorize(Roles = "User, Administrator")]
         public async Task<HttpResponseMessage> DeleteFromWatchListAsync(Guid id)
         {
             CurrentUser currentUser = new CurrentUser();
-            //currentUser.Id = GetIdentity();
-            currentUser.Id = Guid.Parse("08d58761-429b-49a3-9bce-9b7ca1b3459a");
+            currentUser.Id = GetIdentity();
 
             int affectedRows = await Service.DeleteFromWatchListAsync(id, currentUser);
             return Request.CreateResponse(HttpStatusCode.OK);
@@ -68,7 +70,7 @@ namespace NotIMDb.Api.Controllers
     
         private Guid GetIdentity()
         {
-            ClaimsIdentity identity = System.Web.HttpContext.Current.User.Identity as ClaimsIdentity;
+            ClaimsIdentity identity = HttpContext.Current.User.Identity as ClaimsIdentity;
             string userIdString = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid userId = Guid.Empty;
             if (Guid.TryParse(userIdString, out Guid userGuid))

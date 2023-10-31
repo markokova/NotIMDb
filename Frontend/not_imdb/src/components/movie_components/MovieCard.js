@@ -1,12 +1,12 @@
 import React from 'react';
 import { getMovies, handleAddToWatchlist } from '../../services/movie_service';
 import { useState, useEffect, useRef } from 'react';
-import '../styles/MovieCard.css';
-import '../styles/ModalCard.css';
+import '../../styles/MovieCard.css';
+import '../../styles/ModalCard.css';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 
-function MovieCard({ genreId }, props) {
+function MovieCard({ genreId, user }) {
   const [movies, setMovies] = useState([]);
   const [hoveredCard, setHoveredCard] = useState(null);
   const scrollContainerRef = useRef(null);
@@ -42,7 +42,8 @@ function MovieCard({ genreId }, props) {
 
   const handleOpenModal = (e, movieId) => {
     e.preventDefault();
-    handleAddToWatchlist(movieId)
+    console.log("userrr: ", user);
+    handleAddToWatchlist(movieId, {user});//added token
     setIsModalOpen(true);
   };
 

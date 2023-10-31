@@ -1,8 +1,8 @@
-import MovieTable from "../components/movie_components/MovieTable";
-import MovieForm from "../components/movie_components/MovieForm";
+import MovieTable from "../../components/movie_components/MovieTable";
+import MovieForm from "../../components/movie_components/MovieForm";
 import { useState, useEffect } from 'react';
-import { handleSubmit, getMovies, handleDeleteMovie, handleUpdate } from '../services/movie_service';
-import AdminNav from "../components/AdminNav";
+import { handleSubmit, getMovies, handleDeleteMovie, handleUpdate } from '../../services/movie_service';
+import AdminNav from "../../components/AdminNav";
 
 function AdminMovieDashboard(){
     const initalMovieValue = {

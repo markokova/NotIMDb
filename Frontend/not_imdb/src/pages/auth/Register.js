@@ -1,4 +1,4 @@
-import './Auth.css';
+import '../../styles/Auth.css';
 import { register } from "../../services/auth_service";
 import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";

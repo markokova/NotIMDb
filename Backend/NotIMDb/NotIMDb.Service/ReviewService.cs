@@ -13,10 +13,10 @@ namespace NotIMDb.Service
 {
     public class ReviewService : IReviewService
     {
-        private IReviewRepository Repository { get; set; }
+        private IReviewRepository _reviewRepository { get; set; }
         public ReviewService(IReviewRepository repository)
         {
-            Repository = repository;
+            _reviewRepository = repository;
         }
         public async Task<PagedList<Review>> GetReviewsAsync(Sorting sorting, Paging paging, ReviewFiltering filtering)
         {
@@ -24,7 +24,7 @@ namespace NotIMDb.Service
             {
                 filtering.MovieId = Guid.Empty;
             }
-            return await Repository.GetReviewsAsync(sorting, paging, filtering);
+            return await _reviewRepository.GetReviewsAsync(sorting, paging, filtering);
         }
 
         public async Task<int> SaveNewReviewAsync(Review review)
@@ -32,18 +32,18 @@ namespace NotIMDb.Service
             review.Id = Guid.NewGuid();
             review = SetReview(review);
 
-            return await Repository.SaveNewReviewAsync(review);
+            return await _reviewRepository.SaveNewReviewAsync(review);
         }
 
         public async Task<int> UpdateReviewAsync(Guid id, Review review, CurrentUser currentUser)
         {
             review.DateUpdated = DateTime.Now;
 
-            return await Repository.UpdateReviewAsync(id, review, currentUser);
+            return await _reviewRepository.UpdateReviewAsync(id, review, currentUser);
         }
         public async Task<int> DeleteReviewAsync(Guid id)
         {
-            return await Repository.DeleteReviewAsync(id);
+            return await _reviewRepository.DeleteReviewAsync(id);
         }
 
         private Review SetReview(Review review)

@@ -24,6 +24,7 @@ namespace NotIMDb.Api
 
             //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //domain, http method, header
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
         }

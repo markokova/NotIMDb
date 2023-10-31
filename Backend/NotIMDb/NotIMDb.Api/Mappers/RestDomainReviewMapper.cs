@@ -21,6 +21,7 @@ namespace NotIMDb.Api.Mappers
                 foreach (Review review in reviews)
                 {
                     ReviewRestGet reviewRest = new ReviewRestGet();
+                    reviewRest.Id = review.Id;
                     reviewRest.Title = review.Title;
                     reviewRest.Content = review.Content;
                     reviewRest.Score = review.Score;
